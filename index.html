@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyal James | Data Scientist</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨🏻‍💼</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+
+        @keyframes pop-in {
+            0% {
+                transform: scale(0.5) translateY(50px);
+                opacity: 0;
+            }
+            80% {
+                transform: scale(1.1) translateY(-5px);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-pop-in {
+            animation: pop-in 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* Custom Styles */
+        html {
+            /* Enables smooth scrolling for anchor links */
+            scroll-behavior: smooth;
+            /* Remove scroll snapping to allow continuous scrolling */
+            scroll-snap-type: none;
+            /* Adjusts snap point to account for the fixed header */
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a192f;
+            color: #8892b0;
+            cursor: none; /* Hide the default cursor */
+        }
+        /* Custom accent color */
+        .text-accent {
+            color: #64ffda;
+        }
+        .bg-accent {
+            background-color: #64ffda;
+        }
+        .border-accent {
+            border-color: #64ffda;
+        }
+        /* Lighter navy for cards and highlights */
+        .bg-light-navy {
+            background-color: #112240;
+        }
+        /* Lightest slate for text headings */
+        .text-lightest-slate {
+            color: #ccd6f6;
+        }
+
+        /* Set sections as snap points - REMOVED TO FIX SCROLLING */
+        /* #hero, #about, #experience, #projects, #contact {
+            scroll-snap-align: start;
+        } */
+        
+        /* Fade-in animation for sections */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Cursor Styles */
+        .cursor-dot, .cursor-circle {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            will-change: transform; /* Performance Optimization */
+            transition: opacity 0.3s ease-in-out;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #64ffda;
+        }
+        .cursor-circle {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #64ffda;
+            transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+        }
+
+        body:hover .cursor-dot, body:hover .cursor-circle {
+            opacity: 1;
+        }
+        
+        /* Hide custom cursor on touch devices */
+        @media (pointer: coarse) {
+            .cursor-dot, .cursor-circle {
+                display: none;
+            }
+            body {
+                cursor: auto;
+            }
+        }
+
+        /* Parallax Grid Background */
+        .parallax-grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, rgba(136, 146, 176, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(136, 146, 176, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            will-change: transform;
+        }
+
+        /* Scroll-Triggered Animation Line */
+        .scroll-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 2px;
+            background-color: #64ffda;
+            z-index: 10;
+            transform-origin: top;
+            transform: scaleY(0);
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div id="hello-popup-overlay" class="fixed inset-0 bg-black/100 opacity-0 transition-opacity duration-1000 pointer-events-none z-[99]"></div>
+    <div id="hello-popup" class="fixed inset-0 flex items-center justify-center pointer-events-none z-[100] opacity-0 transition-opacity duration-300">
+        <div class="text-7xl font-extrabold text-lightest-slate animate-pop-in text-center">
+            <span class="text-accent">H</span>
+            <span class="text-white">e</span>
+            <span class="text-yellow-300">l</span>
+            <span class="text-pink-400">l</span>
+            <span class="text-blue-400">o</span>
+            <span class="text-green-400"> &nbsp;&nbsp; </span>
+            <span class="text-red-400">T</span>
+            <span class="text-purple-400">h</span>
+            <span class="text-cyan-400">e</span>
+            <span class="text-orange-400">r</span>
+            <span class="text-indigo-400">e</span>
+            <span class="text-green-400"> &nbsp; </span>
+            <span class="text-indigo-400">👋</span>
+            <br>
+            <span class="text-white">WELCOME TO MY PORTFOLIO</span>
+        </div>
+    </div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <div class="parallax-grid-bg"></div>
+
+    <div class="scroll-line"></div>
+
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-opacity-80 backdrop-blur-md transition-all duration-300 shadow-lg" style="background-color: rgba(10, 25, 47, 0.85);">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-accent">JJ.</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="hover:text-accent transition-colors duration-300">About</a>
+                <a href="#experience" class="hover:text-accent transition-colors duration-300">Experience</a>
+                <a href="#projects" class="hover:text-accent transition-colors duration-300">Projects</a>
+                <a href="#contact" class="hover:text-accent transition-colors duration-300">Contact</a>
+                <a href="https://drive.google.com/drive/folders/1Td2J6Y5Gp9YtQwIllg6T0H9QXSRr1Im4?usp=sharing" target="_blank" rel="noopener noreferrer" class="border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Certificates</a>
+                <a href="https://drive.google.com/file/d/1Qf79umj_IKf9yc7glDNRSyWgeybbPSrK/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Resume</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-lightest-slate focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#about" class="block py-2 text-center hover:text-accent transition-colors duration-300">About</a>
+            <a href="#experience" class="block py-2 text-center hover:text-accent transition-colors duration-300">Experience</a>
+            <a href="#projects" class="block py-2 text-center hover:text-accent transition-colors duration-300">Projects</a>
+            <a href="#contact" class="block py-2 text-center hover:text-accent transition-colors duration-300">Contact</a>
+            <a href="https://drive.google.com/drive/folders/1Td2J6Y5Gp9YtQwIllg6T0H9QXSRr1Im4?usp=sharing" target="_blank" rel="noopener noreferrer" class="block py-2 text-center hover:text-accent transition-colors duration-300">Certificates</a>
+            <a href="https://drive.google.com/file/d/1Qf79umj_IKf9yc7glDNRSyWgeybbPSrK/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="block mt-2 text-center border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Resume</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 md:px-12 lg:px-24">
+
+        <section id="hero" class="min-h-screen flex flex-col justify-center items-start pt-24 fade-in-section is-visible">
+            <p class="text-accent mb-4 text-lg">Hi, my name is</p>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-lightest-slate">Joyal James.</h1>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-400 mt-2">I am a Data Scientist and Developer.</h2>
+            <p class="mt-6 max-w-xl text-lg">
+                I’m a data scientist and developer specializing in building exceptional digital experiences. I am proficient in Python, web technologies, and machine learning, with a focus on creating human-centered products.
+            </p>
+            <div class="mt-8 flex items-center space-x-6">
+                 <a href="https://github.com/joyaljms98" target="_blank" aria-label="GitHub Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                 <a href="https://www.linkedin.com/in/joyal-james-jj25101998/" target="_blank" aria-label="LinkedIn Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>LinkedIn</title><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                 <a href="https://www.credly.com/users/joyal-james.7b4cd607/badges#credly" target="_blank" aria-label="Credly Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>Credly</title><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L12 9.75l-2.25-2.25a6 6 0 0 0-8.49 8.49l6 6L12 21l2.25-2.25 6-6zM12 14.25l-4.24-4.24a4 4 0 1 1 5.66-5.66L12 5.66l-1.41-1.41a4 4 0 1 1 5.66 5.66L12 14.25z"/></svg></a>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-lightest-slate mb-8 flex items-center">
+                <span class="text-accent mr-4 text-2xl font-normal">01.</span> About Me
+                <span class="h-px bg-gray-700 w-full ml-6"></span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-10">
+                <div class="md:col-span-3">
+                    <p class="mb-4">
+                        Hello! I'm Joyal, a MCA student at CUSAT and a Certified Data Scientist from IABAC with good Software Development, data analytical and presentation skills. I enjoy creating things that live on the internet and leveraging data to build better products.
+                    </p>
+                    <p class="mb-4">
+                        I am a continuous learner with experience in a variety of technologies, projects and certifications. As an audiophile, team player, and tech enthusiast, I'm always looking for new challenges and opportunities to grow.
+                    </p>
+                    <p class="mb-4">Here are a few technologies I’ve been working with recently:</p>
+                    <ul class="grid grid-cols-2 gap-2 font-mono text-sm">
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Python</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>JavaScript (ES6+)</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>React & Node.js</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Machine Learning</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>SQL</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Tableau & Power BI</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>HTML</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>CSS</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Java & C</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>MySQL</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Git & Github</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Docker</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>SDLC</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Agentic AI & CNN</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <div class="w-full max-w-sm mx-auto relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-teal-400 to-cyan-500 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                        <img src="https://placehold.co/500x500/112240/ccd6f6?text=JJ" alt="Joyal James professional headshot" class="relative w-full rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-lightest-slate mb-8 flex items-center">
+                <span class="text-accent mr-4 text-2xl font-normal">02.</span> Where I've Worked
+                <span class="h-px bg-gray-700 w-full ml-6"></span>
+            </h2>
+            <div class="space-y-12 max-w-3xl">
+                 <div>
+                     <h3 class="text-xl font-bold text-lightest-slate">Data Science Intern <span class="text-accent">@ Rubixe AI</span></h3>
+                     <p class="font-mono text-sm mb-4">March 2023 - November 2023</p>
+                     <ul class="space-y-2">
+                        <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Conducted predictive data analysis on diverse domains and with complex datasets using SQL, Python, Microsoft Excel and Microsoft Power BI.</li>
+                     </ul>
+                </div>
+                <div>
+                     <h3 class="text-xl font-bold text-lightest-slate">CA Articleship <span class="text-accent">@ Tony Sebastian and Co.</span></h3>
+                     <p class="font-mono text-sm mb-4">December 2020 - February 2023</p>
+                     <ul class="space-y-2">
+                        <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Engaged in various works relating to Document analysis, Auditing, and Presentation.</li>
+                        <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Made informed taxation and investment decisions using tools like Microsoft Office, Tally ERP, Octa GST, and Winman.</li>
+                     </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-24 fade-in-section">
+            <h2 class="text-3xl font-bold text-lightest-slate mb-8 flex items-center">
+                <span class="text-accent mr-4 text-2xl font-normal">03.</span> Some Things I've Built
+                <span class="h-px bg-gray-700 w-full ml-6"></span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <div class="flex space-x-4">
+                               <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                               <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            </div>
+                        </div>
+                        <!-- 16:9 Image Placeholder -->
+                        <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
+                            <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-lightest-slate mb-2">Link-Notes & Link-Alarm Extension</h3>
+                        <p class="text-sm">Developed Chrome extensions to save URLs with notes and trigger time-based site visit alarms, enhancing productivity and web browsing management.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap font-mono text-xs">
+                        <span class="mr-3 mb-1">HTML</span>
+                        <span class="mr-3 mb-1">CSS</span>
+                        <span class="mr-3 mb-1">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                               <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            </div>
+                        </div>
+                        <!-- 16:9 Image Placeholder -->
+                        <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
+                            <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-lightest-slate mb-2">Youtube Learning Queue</h3>
+                        <p class="text-sm">A Youtube API based website that can create a canvas of playlists or queues to help learners track and complete a specified list of videos in a custom order.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap font-mono text-xs">
+                        <span class="mr-3 mb-1">Python</span>
+                        <span class="mr-3 mb-1">Machine Learning</span>
+                        <span class="mr-3 mb-1">Youtube API</span>
+                    </div>
+                </div>
+                
+                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                               <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            </div>
+                        </div>
+                        <!-- 16:9 Image Placeholder -->
+                        <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
+                            <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-lightest-slate mb-2">Product Sales Forecasting</h3>
+                        <p class="text-sm">Forecasted product sales and bike rentals using Excel, Python Machine Learning models, and interactive Power BI dashboards for visualization.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap font-mono text-xs">
+                        <span class="mr-3 mb-1">Python</span>
+                        <span class="mr-3 mb-1">Excel</span>
+                        <span class="mr-3 mb-1">Power BI</span>
+                    </div>
+                </div>
+
+                 <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <div class="flex space-x-4">
+                               <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                               <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            </div>
+                        </div>
+                        <!-- 16:9 Image Placeholder -->
+                        <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
+                            <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-lightest-slate mb-2">Game Analysis with Clustering</h3>
+                        <p class="text-sm">Explored FIFA game data, using K-Means & Hierarchical Clustering to visualize player stats and uncover insightful player clusters with Tableau.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap font-mono text-xs">
+                        <span class="mr-3 mb-1">Machine Learning</span>
+                        <span class="mr-3 mb-1">K-Means</span>
+                        <span class="mr-3 mb-1">Tableau</span>
+                    </div>
+                </div>
+
+                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                               <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            </div>
+                        </div>
+                        <!-- 16:9 Image Placeholder -->
+                        <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
+                            <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-lightest-slate mb-2">Image Classification with CNN</h3>
+                        <p class="text-sm">Image classification of rice diseases using ResNet and VGG models. Also used custom python code to automatically unzip datasets in a zip file.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap font-mono text-xs">
+                        <span class="mr-3 mb-1">Python</span>
+                        <span class="mr-3 mb-1">Machine Learning</span>
+                        <span class="mr-3 mb-1">CNN</span>
+                    </div>
+                </div>
+
+                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            </div>
+                        </div>
+                        <!-- 16:9 Image Placeholder -->
+                        <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
+                            <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-lightest-slate mb-2">Youtube Learning Queue Platform</h3>
+                        [cite_start]<p class="text-sm">A Youtube API based website that can create a canvas of playlist or Queue to help learners and other users to track and complete a specified list of videos in custom order[cite: 77, 78].</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap font-mono text-xs">
+                        <span class="mr-3 mb-1">Python</span>
+                        <span class="mr-3 mb-1">Machine Learning</span>
+                        <span class="mr-3 mb-1">Youtube API</span>
+                    </div>
+                </div>
+
+                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                               <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            </div>
+                        </div>
+                        <!-- 16:9 Image Placeholder -->
+                        <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
+                            <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-lightest-slate mb-2">Web-Based Audio Player</h3>
+                        <p class="text-sm">A visually spectacular, lightweight local audio player app for Windows with basic editing capability, built with web technologies.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap font-mono text-xs">
+                        <span class="mr-3 mb-1">HTML</span>
+                        <span class="mr-3 mb-1">CSS</span>
+                        <span class="mr-3 mb-1">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            </div>
+                        </div>
+                        <!-- 16:9 Image Placeholder -->
+                        <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
+                            <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-lightest-slate mb-2">Image Classification Using CNN</h3>
+                        <p class="text-sm">Image classification of rice diseases using ResNet and VGG models. [cite_start]Also used custom python code to automatically unzip datasets in a zip file[cite: 75, 76].</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap font-mono text-xs">
+                        <span class="mr-3 mb-1">Python</span>
+                        <span class="mr-3 mb-1">Machine Learning</span>
+                        <span class="mr-3 mb-1">CNN</span>
+                    </div>
+                </div>
+
+                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            </div>
+                        </div>
+                        <!-- 16:9 Image Placeholder -->
+                        <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
+                            <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-lightest-slate mb-2">Credit Score Prediction (BFSI)</h3>
+                        <p class="text-sm">Predicted credit default risk using SQL and Excel AI features.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap font-mono text-xs">
+                        <span class="mr-3 mb-1">SQL</span>
+                        <span class="mr-3 mb-1">Excel</span>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 text-center max-w-2xl mx-auto fade-in-section">
+             <h2 class="text-2xl font-bold text-accent mb-2">04. Looking for a good fella with good passion and skills in tech</h2>
+            <h3 class="text-4xl font-bold text-lightest-slate mb-4">Well, congrats, you found him. </h3>
+            <p class="mb-8">
+                Guys, I'm currently looking for new opportunities, and my inbox is always open. <br> Whether you have a question or just want to say hi, I’ll try my best to get back to you!
+            </p>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=joyaljms98@gmail.com" target="_blank" 
+                class="inline-block border border-accent text-accent text-lg px-8 py-4 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">
+                Say Hello
+            </a>
+        </section>
+
+    </main>
+    
+    <footer class="py-6 text-center text-xs">
+        <p>Designed and built by Joyal James (The Tech Fella 😁).</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- "Hello There" Popup Animation ---
+            const headerLogo = document.querySelector('header nav .text-accent');
+            const helloPopup = document.getElementById('hello-popup');
+            const helloPopupOverlay = document.getElementById('hello-popup-overlay'); // New constant
+
+            headerLogo.addEventListener('click', (e) => {
+                // Prevent the default anchor link behavior
+                e.preventDefault(); 
+                
+                // Make the popup and overlay visible and trigger animation
+                helloPopup.classList.remove('opacity-0', 'pointer-events-none');
+                helloPopupOverlay.classList.remove('opacity-0', 'pointer-events-none'); // Show the overlay
+                helloPopupOverlay.style.opacity = '0.9'; // Set opacity for the fade effect
+                
+                // Hide the popup and overlay after the animation is finished
+                setTimeout(() => {
+                    helloPopup.classList.add('opacity-0', 'pointer-events-none');
+                    helloPopupOverlay.classList.add('opacity-0', 'pointer-events-none'); // Hide the overlay
+                    helloPopupOverlay.style.opacity = '0'; // Reset opacity
+                }, 1500); // Duration matches the animation + a small delay
+            });
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // --- Header Scroll Effect ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50) {
+                     header.classList.add('py-2');
+                     header.classList.remove('py-4');
+                } else {
+                     header.classList.add('py-4');
+                     header.classList.remove('py-2');
+                }
+            });
+
+            // --- Intersection Observer for Fade-in Animation ---
+            const sections = document.querySelectorAll('.fade-in-section');
+            const options = {
+                root: null, // viewport
+                rootMargin: '0px',
+                threshold: 0.15 // 15% of the element is visible
+            };
+
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // --- Smooth scrolling for nav links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        // Close mobile menu on link click
+                        if (!mobileMenu.classList.contains('hidden')) {
+                             mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+
+            // --- Custom Cursor Logic ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorCircle = document.querySelector('.cursor-circle');
+
+            let mouseX = 0;
+            let mouseY = 0;
+
+            let circleX = 0;
+            let circleY = 0;
+
+            let targetScale = 1;
+            let currentScale = 1;
+            
+            // Using a helper function for linear interpolation for smoother animation
+            const lerp = (a, b, n) => (1 - n) * a + n * b;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            const animateCursor = () => {
+                // Animate the circle to follow the mouse
+                circleX = lerp(circleX, mouseX, 0.15);
+                circleY = lerp(circleY, mouseY, 0.15);
+
+                // Animate the scale for the hover effect
+                currentScale = lerp(currentScale, targetScale, 0.2);
+                
+                // Position the dot directly at the mouse location
+                // The offsets (-4, -20) center the elements on the cursor
+                cursorDot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+                
+                // Position and scale the circle
+                cursorCircle.style.transform = `translate(${circleX - 20}px, ${circleY - 20}px) scale(${currentScale})`;
+
+                requestAnimationFrame(animateCursor);
+            };
+            animateCursor();
+            
+            // --- Cursor Hover Effect ---
+            const hoverElements = document.querySelectorAll('a, button');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    targetScale = 1.5; // Set the target scale for growing
+                    cursorCircle.style.borderColor = '#ccd6f6';
+                    cursorCircle.style.backgroundColor = 'rgba(100, 255, 218, 0.1)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    targetScale = 1; // Set the target scale for shrinking
+                    cursorCircle.style.borderColor = '#64ffda';
+                    cursorCircle.style.backgroundColor = 'transparent';
+                });
+            });
+
+            // --- Parallax Grid Background ---
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const parallaxGrid = document.querySelector('.parallax-grid-bg');
+                parallaxGrid.style.transform = `translateY(${scrollY * -0.2}px)`;
+            });
+
+            // --- Scroll-Triggered Animation ---
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.to('.scroll-line', {
+                scaleY: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: true,
+                }
+            });
+        });
+    </script>
+</body>
+</html>

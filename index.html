@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+
     <style>
 
         @keyframes pop-in {
@@ -121,18 +124,57 @@
             }
         }
 
-        /* Parallax Grid Background */
+        /* Add this keyframe animation */
+        @keyframes scroll-diagonal {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                /* Moves up by 50px and left by 50px */
+                transform: translate(-50px, -50px); 
+            }
+        }
+
+        /* Modify the existing .parallax-grid-bg class */
         .parallax-grid-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(to right, rgba(136, 146, 176, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(136, 146, 176, 0.05) 1px, transparent 1px);
+            background-image: 
+                linear-gradient(to right, rgba(136, 146, 176, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(136, 146, 176, 0.1) 1px, transparent 1px);
             background-size: 50px 50px;
             z-index: -1;
-            will-change: transform;
+            /* Updated animation property */
+            animation: scroll-diagonal 3s linear infinite;
+        }
+
+
+
+
+        /* Scroll-Triggered Animation Line */
+        .scroll-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 2px;
+            background-color: #64ffda;
+            z-index: 10;
+            transform-origin: top;
+            transform: scaleY(0);
+        }
+
+        /* --- START: ADDED ANIMATION FOR TITLE --- */
+        .animated-gradient-text {
+            background-image: linear-gradient(to right, #ccd6f6, #64ffda, #ccd6f6);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: wave 4s ease-in-out infinite alternate;
         }
 
         /* Scroll-Triggered Animation Line */
@@ -147,11 +189,36 @@
             transform-origin: top;
             transform: scaleY(0);
         }
+
+        /* ADD THIS ENTIRE CSS RULE */
+        .scroll-line-right {
+            position: fixed;
+            top: 0;
+            right: 0; /* Positioned to the right */
+            height: 100vh;
+            width: 2px;
+            background-color: #64ffda;
+            z-index: 10;
+            transform-origin: bottom; /* Animates from the bottom up */
+            transform: scaleY(0);
+        }
+
+
+        @keyframes wave {
+            from {
+                background-position: 0% 50%;
+            }
+            to {
+                background-position: 100% 50%;
+            }
+        }
+        /* --- END: ADDED ANIMATION FOR TITLE --- */
+
     </style>
 </head>
 <body class="leading-relaxed">
 
-    <div id="hello-popup-overlay" class="fixed inset-0 bg-black/100 opacity-0 transition-opacity duration-1000 pointer-events-none z-[99]"></div>
+    <div id="hello-popup-overlay" class="fixed inset-0 bg-black/100 opacity-0 transition-opacity duration-3500 pointer-events-none z-[99]"></div>
     <div id="hello-popup" class="fixed inset-0 flex items-center justify-center pointer-events-none z-[100] opacity-0 transition-opacity duration-300">
         <div class="text-7xl font-extrabold text-lightest-slate animate-pop-in text-center">
             <span class="text-accent">H</span>
@@ -178,6 +245,7 @@
     <div class="parallax-grid-bg"></div>
 
     <div class="scroll-line"></div>
+    <div class="scroll-line-right"></div>
 
     <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-opacity-80 backdrop-blur-md transition-all duration-300 shadow-lg" style="background-color: rgba(10, 25, 47, 0.85);">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -208,10 +276,10 @@
 
         <section id="hero" class="min-h-screen flex flex-col justify-center items-start pt-24 fade-in-section is-visible">
             <p class="text-accent mb-4 text-lg">Hi, my name is</p>
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-lightest-slate">Joyal James.</h1>
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-400 mt-2">I am a Data Scientist and Developer.</h2>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-lightest-slate animated-gradient-text">Joyal James.</h1>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-400 mt-2">I'm an MCA student, Certified Data Scientist and a Vibe coder</h2>
             <p class="mt-6 max-w-xl text-lg">
-                I’m a data scientist and developer specializing in building exceptional digital experiences. I am proficient in Python, web technologies, and machine learning, with a focus on creating human-centered products.
+                specializing in building exceptional digital experiences. <br> I am proficient in Python, vanilla web technologies, and machine learning, with a passion for creating human-centered products.
             </p>
             <div class="mt-8 flex items-center space-x-6">
                  <a href="https://github.com/joyaljms98" target="_blank" aria-label="GitHub Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
@@ -228,17 +296,17 @@
             <div class="grid grid-cols-1 md:grid-cols-5 gap-10">
                 <div class="md:col-span-3">
                     <p class="mb-4">
-                        Hello! I'm Joyal, a MCA student at CUSAT and a Certified Data Scientist from IABAC with good Software Development, data analytical and presentation skills. I enjoy creating things that live on the internet and leveraging data to build better products.
+                        Hello! I'm Joyal, an MCA student at CUSAT and a Certified Data Scientist from IABAC with good Software Development, data analytical and presentation skills. I enjoy creating things that live on the internet and leveraging new technological advancements to build better products.
                     </p>
                     <p class="mb-4">
-                        I am a continuous learner with experience in a variety of technologies, projects and certifications. As an audiophile, team player, and tech enthusiast, I'm always looking for new challenges and opportunities to grow.
+                        I am a continuous learner with experience in a variety of technologies, projects and certifications. As a person who takes initiatives, is a team player, and a tech enthusiast, I'm always looking for new possibilities to grow in the tech field within a community.
                     </p>
                     <p class="mb-4">Here are a few technologies I’ve been working with recently:</p>
                     <ul class="grid grid-cols-2 gap-2 font-mono text-sm">
                         <li class="flex items-center"><span class="text-accent mr-2">▹</span>Python</li>
-                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>JavaScript (ES6+)</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>JavaScript</li>
                         <li class="flex items-center"><span class="text-accent mr-2">▹</span>React & Node.js</li>
-                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Machine Learning</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>AI/ML products</li>
                         <li class="flex items-center"><span class="text-accent mr-2">▹</span>SQL</li>
                         <li class="flex items-center"><span class="text-accent mr-2">▹</span>Tableau & Power BI</li>
                         <li class="flex items-center"><span class="text-accent mr-2">▹</span>HTML</li>
@@ -248,7 +316,7 @@
                         <li class="flex items-center"><span class="text-accent mr-2">▹</span>Git & Github</li>
                         <li class="flex items-center"><span class="text-accent mr-2">▹</span>Docker</li>
                         <li class="flex items-center"><span class="text-accent mr-2">▹</span>SDLC</li>
-                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Agentic AI & CNN</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">▹</span>Agentic AI</li>
                     </ul>
                 </div>
                 <div class="md:col-span-2">
@@ -300,7 +368,6 @@
                                <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                             </div>
                         </div>
-                        <!-- 16:9 Image Placeholder -->
                         <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
                             <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
                         </div>
@@ -323,7 +390,6 @@
                                <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                             </div>
                         </div>
-                        <!-- 16:9 Image Placeholder -->
                         <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
                             <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
                         </div>
@@ -346,7 +412,6 @@
                                <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                             </div>
                         </div>
-                        <!-- 16:9 Image Placeholder -->
                         <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
                             <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
                         </div>
@@ -369,7 +434,6 @@
                                <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                             </div>
                         </div>
-                        <!-- 16:9 Image Placeholder -->
                         <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
                             <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
                         </div>
@@ -392,7 +456,6 @@
                                <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                             </div>
                         </div>
-                        <!-- 16:9 Image Placeholder -->
                         <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
                             <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
                         </div>
@@ -415,12 +478,11 @@
                                 <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                             </div>
                         </div>
-                        <!-- 16:9 Image Placeholder -->
                         <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
                             <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold text-lightest-slate mb-2">Youtube Learning Queue Platform</h3>
-                        [cite_start]<p class="text-sm">A Youtube API based website that can create a canvas of playlist or Queue to help learners and other users to track and complete a specified list of videos in custom order[cite: 77, 78].</p>
+                        <p class="text-sm">A Youtube API based website that can create a canvas of playlist or Queue to help learners and other users to track and complete a specified list of videos in custom order.</p>
                     </div>
                     <div class="mt-4 flex flex-wrap font-mono text-xs">
                         <span class="mr-3 mb-1">Python</span>
@@ -435,10 +497,9 @@
                             <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                             <div class="flex space-x-4">
                                 <a href="https://github.com/joyaljms98" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                               <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                                <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                             </div>
                         </div>
-                        <!-- 16:9 Image Placeholder -->
                         <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
                             <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
                         </div>
@@ -461,12 +522,11 @@
                                 <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                             </div>
                         </div>
-                        <!-- 16:9 Image Placeholder -->
                         <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
                             <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold text-lightest-slate mb-2">Image Classification Using CNN</h3>
-                        <p class="text-sm">Image classification of rice diseases using ResNet and VGG models. [cite_start]Also used custom python code to automatically unzip datasets in a zip file[cite: 75, 76].</p>
+                        <p class="text-sm">Image classification of rice diseases using ResNet and VGG models. Also used custom python code to automatically unzip datasets in a zip file.</p>
                     </div>
                     <div class="mt-4 flex flex-wrap font-mono text-xs">
                         <span class="mr-3 mb-1">Python</span>
@@ -484,7 +544,6 @@
                                 <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                             </div>
                         </div>
-                        <!-- 16:9 Image Placeholder -->
                         <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
                             <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
                         </div>
@@ -501,7 +560,7 @@
             </div>
         </section>
 
-        <section id="contact" class="py-24 text-center max-w-2xl mx-auto fade-in-section">
+        <section id="contact" class="py-60 text-center max-w-2xl mx-auto fade-in-section">
              <h2 class="text-2xl font-bold text-accent mb-2">04. Looking for a good fella with good passion and skills in tech</h2>
             <h3 class="text-4xl font-bold text-lightest-slate mb-4">Well, congrats, you found him. </h3>
             <p class="mb-8">
@@ -522,26 +581,35 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            // --- "Hello There" Popup Animation ---
+             // --- "Hello There" Popup Animation ---
             const headerLogo = document.querySelector('header nav .text-accent');
             const helloPopup = document.getElementById('hello-popup');
-            const helloPopupOverlay = document.getElementById('hello-popup-overlay'); // New constant
+            const helloPopupOverlay = document.getElementById('hello-popup-overlay');
+            let popupTimer; // To hold the timeout ID
 
+            // Function to hide the popup
+            const hidePopup = () => {
+                helloPopup.classList.add('opacity-0', 'pointer-events-none');
+                helloPopupOverlay.classList.add('opacity-0', 'pointer-events-none');
+                helloPopupOverlay.style.opacity = '0'; // THIS IS THE CRITICAL FIX
+            };
+
+            // Show the popup
             headerLogo.addEventListener('click', (e) => {
-                // Prevent the default anchor link behavior
                 e.preventDefault(); 
                 
-                // Make the popup and overlay visible and trigger animation
-                helloPopup.classList.remove('opacity-0', 'pointer-events-none');
-                helloPopupOverlay.classList.remove('opacity-0', 'pointer-events-none'); // Show the overlay
-                helloPopupOverlay.style.opacity = '0.9'; // Set opacity for the fade effect
+                helloPopup.classList.remove('opacity-0');
+                helloPopupOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                helloPopupOverlay.style.opacity = '0.9';
                 
-                // Hide the popup and overlay after the animation is finished
-                setTimeout(() => {
-                    helloPopup.classList.add('opacity-0', 'pointer-events-none');
-                    helloPopupOverlay.classList.add('opacity-0', 'pointer-events-none'); // Hide the overlay
-                    helloPopupOverlay.style.opacity = '0'; // Reset opacity
-                }, 1500); // Duration matches the animation + a small delay
+                // Set a timer to automatically hide it
+                popupTimer = setTimeout(hidePopup, 3500);
+            });
+
+            // Hide the popup when the overlay is clicked
+            helloPopupOverlay.addEventListener('click', () => {
+                clearTimeout(popupTimer); // Cancel the automatic hide timer
+                hidePopup(); // Hide the popup immediately
             });
 
             // --- Mobile Menu Toggle ---
@@ -584,23 +652,28 @@
                 observer.observe(section);
             });
             
-            // --- Smooth scrolling for nav links ---
+            // --- GSAP Smooth Scrolling for Nav Links ---
+            gsap.registerPlugin(ScrollToPlugin);
+
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     
                     const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                        // Close mobile menu on link click
-                        if (!mobileMenu.classList.contains('hidden')) {
-                             mobileMenu.classList.add('hidden');
-                        }
+                    
+                    // Close mobile menu on link click
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
                     }
+
+                    gsap.to(window, {
+                        duration: 25,
+                        ease: "expo.inOut",
+                        scrollTo: {
+                            y: targetId,
+                            offsetY: 80 // Accounts for the fixed header height
+                        }
+                    });
                 });
             });
 
@@ -659,11 +732,18 @@
                 });
             });
 
-            // --- Parallax Grid Background ---
-            window.addEventListener('scroll', () => {
-                const scrollY = window.scrollY;
-                const parallaxGrid = document.querySelector('.parallax-grid-bg');
-                parallaxGrid.style.transform = `translateY(${scrollY * -0.2}px)`;
+            // --- Scroll-Triggered Animation ---
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.to('.scroll-line', {
+                scaleY: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: true,
+                }
             });
 
             // --- Scroll-Triggered Animation ---
@@ -679,6 +759,19 @@
                     scrub: true,
                 }
             });
+
+            /* ADD THIS ENTIRE ANIMATION BLOCK */
+            gsap.to('.scroll-line-right', {
+                scaleY: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: true,
+                }
+            });
+
         });
     </script>
 </body>

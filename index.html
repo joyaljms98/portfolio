@@ -224,7 +224,7 @@
             <span class="text-pink-400">l</span>
             <span class="text-blue-400">o</span>
             <div class="md:hidden inline-block">
-                
+                <br>
                 <span class="text-red-400">T</span>
                 <span class="text-purple-400">h</span>
                 <span class="text-cyan-400">e</span>
@@ -267,7 +267,7 @@
             <span class="text-pink-400">l</span>
             <span class="text-blue-400">o</span>
             <div class="md:hidden inline-block">
-                
+                <br>
                 <span class="text-red-400">T</span>
                 <span class="text-purple-400">h</span>
                 <span class="text-cyan-400">e</span>
@@ -366,19 +366,21 @@
                             <p class="mb-4">Here are a few technologies I’ve been working with recently:</p>
                             <ul class="grid grid-cols-2 gap-2 font-mono text-sm">
                                 <li class="flex items-center"><span class="text-accent mr-2">▹</span>Python</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>JavaScript</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>React & Node.js</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>AI/ML products</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>AI/ML apps</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Java </li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Agentic AI</li>
                                 <li class="flex items-center"><span class="text-accent mr-2">▹</span>SQL</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Tableau & Power BI</li>
                                 <li class="flex items-center"><span class="text-accent mr-2">▹</span>HTML</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>C</li>
                                 <li class="flex items-center"><span class="text-accent mr-2">▹</span>CSS</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Java & C</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>MySQL</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Git & Github</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>React</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>JavaScript</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Node.js</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Tableau & Power BI</li>
                                 <li class="flex items-center"><span class="text-accent mr-2">▹</span>Docker</li>
                                 <li class="flex items-center"><span class="text-accent mr-2">▹</span>SDLC</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Agentic AI</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Git & Github</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Qiskit</li>
                             </ul>
                         </div>
                         <div class="md:col-span-2">
@@ -602,10 +604,8 @@
                                 <p class="text-sm">It provides a secure notepad interface where users can type and save secret messages. The application features disappearing text and automatic character counting that saves the secret message with password protection to a local path but with a surprise. (part of Useless projects 1.0 Makeathon).</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
-                                <span class="mr-3 mb-1">HTML</span>
-                                <span class="mr-3 mb-1">JS</span>
-                                <span class="mr-3 mb-1">CSS</span>
-                                <span class="mr-3 mb-1">Gemini API</span>
+                                <span class="mr-3 mb-1">Python</span>
+                                <span class="mr-3 mb-1">Tkinter</span>
                             </div>
                         </div>
 
@@ -738,14 +738,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- The rest of your existing JavaScript code goes here ---
+            // --- The rest of your existing JavaScript code goes here ---
             const loadingScreen = document.getElementById('loading-screen');
             const minimumLoadTime = 2000; // 2 seconds in milliseconds
             let pageLoaded = false;
-            let timeElapsed = false;
+            let minimumTimePassed = false;
+            let maxTimePassed = false;
 
             // Fades out the loading screen
             const hideLoadingScreen = () => {
-                if (pageLoaded && timeElapsed) {
+                if ((pageLoaded && minimumTimePassed) || maxTimePassed) {
                     loadingScreen.classList.remove('opacity-100');
                     loadingScreen.classList.add('opacity-0');
                     setTimeout(() => {
@@ -754,19 +757,25 @@
                 }
             };
 
-            // Set a timeout for the minimum display duration
-            setTimeout(() => {
-                timeElapsed = true;
-                hideLoadingScreen();
-            }, minimumLoadTime);
-
-            // Check if the window and all its resources have loaded
+            // Event listener for when the page has fully loaded
             window.addEventListener('load', () => {
                 pageLoaded = true;
                 hideLoadingScreen();
             });
 
-            // --- The rest of your existing JavaScript code goes here ---
+            // Set a timer for the minimum display time
+            setTimeout(() => {
+                minimumTimePassed = true;
+                hideLoadingScreen();
+            }, minimumLoadTime);
+
+            // Set a timer for the maximum display time (5 seconds)
+            setTimeout(() => {
+                maxTimePassed = true;
+                hideLoadingScreen();
+            }, 5000);
+            
+
 
             // --- Manual Anchor Link Scrolling ---
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1075,5 +1084,4 @@ class Smooth {
 new Smooth()
     </script>
 </body>
-
 </html>

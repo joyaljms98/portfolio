@@ -1,42 +1,47 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joyal James | Data Scientist</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨🏻‍💼</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨🏻‍💼</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/5.0.0/imagesloaded.pkgd.min.js"></script>
-        
+
 
     <style>
-
         /* New spinner animation */
         @keyframes spin {
             from {
                 transform: rotate(0deg);
             }
+
             to {
                 transform: rotate(360deg);
             }
         }
+
         .animate-spin {
             animation: spin 1s linear infinite;
         }
-        
+
         @keyframes pop-in {
             0% {
                 transform: scale(0.5) translateY(50px);
                 opacity: 0;
             }
+
             80% {
                 transform: scale(1.1) translateY(-5px);
                 opacity: 1;
             }
+
             100% {
                 transform: scale(1) translateY(0);
                 opacity: 1;
@@ -59,22 +64,28 @@
             font-family: 'Inter', sans-serif;
             background-color: #0a192f;
             color: #8892b0;
-            cursor: none; /* Hide the default cursor */
+            cursor: none;
+            /* Hide the default cursor */
         }
+
         /* Custom accent color */
         .text-accent {
             color: #64ffda;
         }
+
         .bg-accent {
             background-color: #64ffda;
         }
+
         .border-accent {
             border-color: #64ffda;
         }
+
         /* Lighter navy for cards and highlights */
         .bg-light-navy {
             background-color: #112240;
         }
+
         /* Lightest slate for text headings */
         .text-lightest-slate {
             color: #ccd6f6;
@@ -84,20 +95,22 @@
         /* #hero, #about, #experience, #projects, #contact {
             scroll-snap-align: start;
         } */
-        
+
         /* Fade-in animation for sections */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
+
         .fade-in-section.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
         /* Custom Cursor Styles */
-        .cursor-dot, .cursor-circle {
+        .cursor-dot,
+        .cursor-circle {
             pointer-events: none;
             position: fixed;
             top: 0;
@@ -105,14 +118,17 @@
             border-radius: 50%;
             z-index: 9999;
             opacity: 0;
-            will-change: transform; /* Performance Optimization */
+            will-change: transform;
+            /* Performance Optimization */
             transition: opacity 0.3s ease-in-out;
         }
+
         .cursor-dot {
             width: 8px;
             height: 8px;
             background-color: #64ffda;
         }
+
         .cursor-circle {
             width: 40px;
             height: 40px;
@@ -120,15 +136,19 @@
             transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
         }
 
-        body:hover .cursor-dot, body:hover .cursor-circle {
+        body:hover .cursor-dot,
+        body:hover .cursor-circle {
             opacity: 1;
         }
-        
+
         /* Hide custom cursor on touch devices */
         @media (pointer: coarse) {
-            .cursor-dot, .cursor-circle {
+
+            .cursor-dot,
+            .cursor-circle {
                 display: none;
             }
+
             body {
                 cursor: auto;
             }
@@ -139,9 +159,10 @@
             from {
                 transform: translate(0, 0);
             }
+
             to {
                 /* Moves up by 50px and left by 50px */
-                transform: translate(-50px, -50px); 
+                transform: translate(-50px, -50px);
             }
         }
 
@@ -152,7 +173,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(to right, rgba(136, 146, 176, 0.1) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(136, 146, 176, 0.1) 1px, transparent 1px);
             background-size: 50px 50px;
@@ -192,12 +213,14 @@
         .scroll-line-right {
             position: fixed;
             top: 0;
-            right: 0; /* Positioned to the right */
+            right: 0;
+            /* Positioned to the right */
             height: 100vh;
             width: 2px;
             background-color: #64ffda;
             z-index: 10;
-            transform-origin: bottom; /* Animates from the bottom up */
+            transform-origin: bottom;
+            /* Animates from the bottom up */
             transform: scaleY(0);
         }
 
@@ -206,17 +229,37 @@
             from {
                 background-position: 0% 50%;
             }
+
             to {
                 background-position: 100% 50%;
             }
         }
+
         /* --- END: ADDED ANIMATION FOR TITLE --- */
 
-</style>
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 8px;
+            /* Slightly thicker */
+            background-color: #00ff00;
+            /* Bright Green */
+            z-index: 2147483647;
+            /* Max Z-Index */
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px #00ff00;
+            /* Glow for visibility */
+        }
+    </style>
 
 </head>
+
 <body class="leading-relaxed">
-    <div id="loading-screen" class="fixed inset-0 bg-black/100 z-[101] flex items-center justify-center transition-opacity duration-500 opacity-100">
+    <div id="loading-screen"
+        class="fixed inset-0 bg-black/100 z-[101] flex items-center justify-center transition-opacity duration-500 opacity-100">
         <div class="text-7xl font-extrabold text-lightest-slate animate-pop-in text-center">
             <span class="text-accent">H</span>
             <span class="text-white">e</span>
@@ -224,7 +267,7 @@
             <span class="text-pink-400">l</span>
             <span class="text-blue-400">o</span>
             <div class="md:hidden inline-block">
-                
+
                 <span class="text-red-400">T</span>
                 <span class="text-purple-400">h</span>
                 <span class="text-cyan-400">e</span>
@@ -235,7 +278,7 @@
                 <br>
             </div>
             <div class="hidden md:inline-block">
-                
+
                 <span class="text-red-400">T</span>
                 <span class="text-purple-400">h</span>
                 <span class="text-cyan-400">e</span>
@@ -253,13 +296,17 @@
             <div class="hidden md:block">
                 <span class="text-white">WELCOME TO MY PORTFOLIO</span>
             </div>
-            <div class="loading-spinner mt-8 mx-auto w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+            <div
+                class="loading-spinner mt-8 mx-auto w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin">
+            </div>
         </div>
     </div>
 
 
-    <div id="hello-popup-overlay" class="fixed inset-0 bg-black/100 opacity-0 transition-opacity duration-3500 pointer-events-none z-[99]"></div>
-    <div id="hello-popup" class="fixed inset-0 flex items-center justify-center pointer-events-none z-[100] opacity-0 transition-opacity duration-300">
+    <div id="hello-popup-overlay"
+        class="fixed inset-0 bg-black/100 opacity-0 transition-opacity duration-3500 pointer-events-none z-[99]"></div>
+    <div id="hello-popup"
+        class="fixed inset-0 flex items-center justify-center pointer-events-none z-[100] opacity-0 transition-opacity duration-300">
         <div class="text-7xl font-extrabold text-lightest-slate animate-pop-in text-center">
             <span class="text-accent">H</span>
             <span class="text-white">e</span>
@@ -267,7 +314,7 @@
             <span class="text-pink-400">l</span>
             <span class="text-blue-400">o</span>
             <div class="md:hidden inline-block">
-                
+
                 <span class="text-red-400">T</span>
                 <span class="text-purple-400">h</span>
                 <span class="text-cyan-400">e</span>
@@ -278,7 +325,7 @@
                 <br>
             </div>
             <div class="hidden md:inline-block">
-                
+
                 <span class="text-red-400">T</span>
                 <span class="text-purple-400">h</span>
                 <span class="text-cyan-400">e</span>
@@ -307,7 +354,9 @@
     <div class="scroll-line"></div>
     <div class="scroll-line-right"></div>
 
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-opacity-80 backdrop-blur-md transition-all duration-300 shadow-lg" style="background-color: rgba(10, 25, 47, 0.85);">
+    <header id="header"
+        class="fixed top-0 left-0 right-0 z-50 bg-opacity-80 backdrop-blur-md transition-all duration-300 shadow-lg"
+        style="background-color: rgba(10, 25, 47, 0.85);">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-accent">JJ.</a>
             <div class="hidden md:flex items-center space-x-8">
@@ -315,20 +364,35 @@
                 <a href="#experience" class="hover:text-accent transition-colors duration-300">Experience</a>
                 <a href="#projects" class="hover:text-accent transition-colors duration-300">Projects</a>
                 <a href="#contact" class="hover:text-accent transition-colors duration-300">Contact</a>
-                <a href="https://drive.google.com/drive/folders/1Td2J6Y5Gp9YtQwIllg6T0H9QXSRr1Im4?usp=sharing" target="_blank" rel="noopener noreferrer" class="border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Certificates</a>
-                <a href="https://drive.google.com/file/d/1Qf79umj_IKf9yc7glDNRSyWgeybbPSrK/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Resume</a>
+                <a href="https://drive.google.com/drive/folders/1Td2J6Y5Gp9YtQwIllg6T0H9QXSRr1Im4?usp=sharing"
+                    target="_blank" rel="noopener noreferrer"
+                    class="border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Certificates</a>
+                <a href="https://drive.google.com/file/d/1Qf79umj_IKf9yc7glDNRSyWgeybbPSrK/view?usp=drive_link"
+                    target="_blank" rel="noopener noreferrer"
+                    class="border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Resume</a>
             </div>
             <button id="mobile-menu-btn" class="md:hidden text-lightest-slate focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
             </button>
         </nav>
-         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
             <a href="#about" class="block py-2 text-center hover:text-accent transition-colors duration-300">About</a>
-            <a href="#experience" class="block py-2 text-center hover:text-accent transition-colors duration-300">Experience</a>
-            <a href="#projects" class="block py-2 text-center hover:text-accent transition-colors duration-300">Projects</a>
-            <a href="#contact" class="block py-2 text-center hover:text-accent transition-colors duration-300">Contact</a>
-            <a href="https://drive.google.com/drive/folders/1Td2J6Y5Gp9YtQwIllg6T0H9QXSRr1Im4?usp=sharing" target="_blank" rel="noopener noreferrer" class="block mt-2 text-center border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Certificates</a>
-            <a href="https://drive.google.com/file/d/1Qf79umj_IKf9yc7glDNRSyWgeybbPSrK/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="block mt-2 text-center border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Resume</a>
+            <a href="#experience"
+                class="block py-2 text-center hover:text-accent transition-colors duration-300">Experience</a>
+            <a href="#projects"
+                class="block py-2 text-center hover:text-accent transition-colors duration-300">Projects</a>
+            <a href="#contact"
+                class="block py-2 text-center hover:text-accent transition-colors duration-300">Contact</a>
+            <a href="https://drive.google.com/drive/folders/1Td2J6Y5Gp9YtQwIllg6T0H9QXSRr1Im4?usp=sharing"
+                target="_blank" rel="noopener noreferrer"
+                class="block mt-2 text-center border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Certificates</a>
+            <a href="https://drive.google.com/file/d/1Qf79umj_IKf9yc7glDNRSyWgeybbPSrK/view?usp=drive_link"
+                target="_blank" rel="noopener noreferrer"
+                class="block mt-2 text-center border border-accent text-accent px-4 py-2 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300">Resume</a>
         </div>
     </header>
 
@@ -336,17 +400,51 @@
         <div data-scroll-content>
             <main class="container mx-auto px-6 md:px-12 lg:px-24">
 
-                <section id="hero" class="min-h-screen flex flex-col justify-center items-start pt-24 fade-in-section is-visible">
+                <section id="hero"
+                    class="min-h-screen flex flex-col justify-center items-start pt-24 fade-in-section is-visible">
                     <p class="text-accent mb-4 text-lg">Hi, my name is</p>
-                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-lightest-slate animated-gradient-text">Joyal James.</h1>
-                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-400 mt-2">I'm an MCA student, Certified Data Scientist and a Vibe coder</h2>
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-lightest-slate animated-gradient-text">
+                        Joyal James.</h1>
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-400 mt-2">I'm an MCA student, BCom
+                        Graduate, <br class="hidden lg:block">
+                        Certified Data Scientist and a Vibe coder.</h2>
                     <p class="mt-6 max-w-xl text-lg">
-                        specializing in building exceptional digital experiences. <br> I am proficient in Python, vanilla web technologies, and machine learning, with a passion for creating human-centered products.
+                        I specialize in building exceptional digital experiences with a strong foundation in
+                        documentation, data analysis, and compliance-oriented work. <br> I am proficient in Python,
+                        vanilla web technologies, and machine learning, with a passion for creating human-centered
+                        products.
                     </p>
                     <div class="mt-8 flex items-center space-x-6">
-                        <a href="https://github.com/joyaljms98" target="_blank" aria-label="GitHub Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                        <a href="https://www.linkedin.com/in/joyal-james-jj25101998/" target="_blank" aria-label="LinkedIn Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>LinkedIn</title><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
-                        <a href="https://www.credly.com/users/joyal-james.7b4cd607/badges#credly" target="_blank" aria-label="Credly Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>Credly</title><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L12 9.75l-2.25-2.25a6 6 0 0 0-8.49 8.49l6 6L12 21l2.25-2.25 6-6zM12 14.25l-4.24-4.24a4 4 0 1 1 5.66-5.66L12 5.66l-1.41-1.41a4 4 0 1 1 5.66 5.66L12 14.25z"/></svg></a>
+                        <a href="https://github.com/joyaljms98" target="_blank" aria-label="GitHub Profile"><svg
+                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="w-6 h-6 hover:text-accent transition-colors">
+                                <title>GitHub</title>
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                </path>
+                            </svg></a>
+                        <a href="https://www.linkedin.com/in/joyal-james-jj25101998/" target="_blank"
+                            aria-label="LinkedIn Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="w-6 h-6 hover:text-accent transition-colors">
+                                <title>LinkedIn</title>
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg></a>
+                        <a href="https://www.credly.com/users/joyal-james.7b4cd607/badges#credly" target="_blank"
+                            aria-label="Credly Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="w-6 h-6 hover:text-accent transition-colors">
+                                <title>Credly</title>
+                                <path
+                                    d="M20.24 12.24a6 6 0 0 0-8.49-8.49L12 9.75l-2.25-2.25a6 6 0 0 0-8.49 8.49l6 6L12 21l2.25-2.25 6-6zM12 14.25l-4.24-4.24a4 4 0 1 1 5.66-5.66L12 5.66l-1.41-1.41a4 4 0 1 1 5.66 5.66L12 14.25z" />
+                            </svg></a>
                     </div>
                 </section>
 
@@ -358,35 +456,47 @@
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-10">
                         <div class="md:col-span-3">
                             <p class="mb-4">
-                                Hello! I'm Joyal, an MCA student at CUSAT and a Certified Data Scientist from IABAC with good Software Development, data analytical and presentation skills. I enjoy creating things that live on the internet and leveraging new technological advancements to build better products.
+                                Hello! I'm Joyal, an MCA student at CUSAT and BCom graduate. I currently have strong
+                                foundation in documentation, presentation, data analysis, and compliance-oriented work.
+                                I enjoy creating
+                                things that live on the internet and leveraging new technological advancements to build
+                                better products.
                             </p>
                             <p class="mb-4">
-                                I am a continuous learner with experience in a variety of technologies, projects and certifications. As a person who takes initiatives, is a team player, and a tech enthusiast, I'm always looking for new possibilities to grow in the tech field within a community.
+                                I am a disciplined, responsible team player and continuous learner with experience in
+                                academic projects and coordination roles involving people interaction and follow-up. As
+                                a proactive tech enthusiast who takes initiative, I
+                                am always looking for new opportunities to grow in the tech field within a community.
                             </p>
                             <p class="mb-4">Here are a few technologies I’ve been working with recently:</p>
                             <ul class="grid grid-cols-2 gap-2 font-mono text-sm">
                                 <li class="flex items-center"><span class="text-accent mr-2">▹</span>Python</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>AI/ML apps</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Java </li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Agentic AI</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>SQL</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>HTML</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>C</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>CSS</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>React</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>MySQL & SQL</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>HTML & CSS</li>
                                 <li class="flex items-center"><span class="text-accent mr-2">▹</span>JavaScript</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Node.js</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Tableau & Power BI</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Docker</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>SDLC</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>AI/ML apps</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Microsoft Excel
+                                </li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Power BI</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Tableau</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Canva</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>MS Office Suite
+                                </li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>React & Node.js
+                                </li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Java</li>
+                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Agentic AI</li>
                                 <li class="flex items-center"><span class="text-accent mr-2">▹</span>Git & Github</li>
-                                <li class="flex items-center"><span class="text-accent mr-2">▹</span>Qiskit</li>
                             </ul>
                         </div>
                         <div class="md:col-span-2">
                             <div class="w-full max-w-sm mx-auto relative group">
-                                <div class="absolute -inset-1 bg-gradient-to-r from-teal-400 to-cyan-500 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                                <img src="https://placehold.co/500x500/112240/ccd6f6?text=JJ" alt="Joyal James professional headshot" class="relative w-full rounded-lg shadow-lg">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-teal-400 to-cyan-500 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200">
+                                </div>
+                                <img src="https://placehold.co/500x500/112240/ccd6f6?text=JJ"
+                                    alt="Joyal James professional headshot"
+                                    class="relative w-full rounded-lg shadow-lg">
                             </div>
                         </div>
                     </div>
@@ -399,19 +509,66 @@
                     </h2>
                     <div class="space-y-12 max-w-3xl">
                         <div>
-                            <h3 class="text-xl font-bold text-lightest-slate">Data Science Intern <span class="text-accent">@ Rubixe AI</span></h3>
+                            <h3 class="text-xl font-bold text-lightest-slate">Data Science Intern <span
+                                    class="text-accent">@ Rubixe AI</span></h3>
                             <p class="font-mono text-sm mb-4">March 2023 - November 2023</p>
                             <ul class="space-y-2">
-                                <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Conducted predictive data analysis on diverse domains and with complex datasets using SQL, Python, Microsoft Excel and Microsoft Power BI.</li>
+                                <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Performed data
+                                    analysis using SQL, Python, Excel, and Power BI.</li>
+                                <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Designed
+                                    dashboards and presented structured insights to stakeholders.</li>
                             </ul>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-lightest-slate">CA Articleship <span class="text-accent">@ Tony Sebastian and Co.</span></h3>
+                            <h3 class="text-xl font-bold text-lightest-slate">CA Articleship <span class="text-accent">@
+                                    Tony Sebastian and Co.</span></h3>
                             <p class="font-mono text-sm mb-4">December 2020 - February 2023</p>
                             <ul class="space-y-2">
-                                <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Engaged in various works relating to Document analysis, Auditing, and Presentation.</li>
-                                <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Made informed taxation and investment decisions using tools like Microsoft Office, Tally ERP, Octa GST, and Winman.</li>
+                                <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Handled
+                                    accounting, auditing, and documentation work.</li>
+                                <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Managed client
+                                    interactions and prepared business-related presentations.</li>
+                                <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Provided
+                                    support in taxation, compliance, and assessment-related activities.</li>
+                                <li class="flex items-start"><span class="text-accent mr-3 mt-1">▹</span>Tools used: MS
+                                    Office Suite, Tally ERP, Winman.</li>
                             </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="education" class="py-24 fade-in-section">
+                    <h2 class="text-3xl font-bold text-lightest-slate mb-8 flex items-center">
+                        <span class="text-accent mr-4 text-2xl font-normal">#</span> Education
+                        <span class="h-px bg-gray-700 w-full ml-6"></span>
+                    </h2>
+                    <div class="space-y-12 max-w-3xl">
+                        <div>
+                            <h3 class="text-xl font-bold text-lightest-slate">Master of Computer Applications (MCA)</h3>
+                            <p class="text-slate-400">CUSAT – CUCEK Dept.</p>
+                            <p class="font-mono text-sm mb-4">2024 – 2026</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-lightest-slate">Certified Data Science Course</h3>
+                            <p class="text-slate-400">Datamites Global Institute</p>
+                            <p class="font-mono text-sm mb-4">2023</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-lightest-slate">Chartered Accountancy (with Articleship)
+                            </h3>
+                            <p class="text-slate-400">Institute of Chartered Accountants of India (ICAI)</p>
+                            <p class="font-mono text-sm mb-4">2020 – 2023</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-lightest-slate">BCom – Finance and Taxation</h3>
+                            <p class="text-slate-400">MG University</p>
+                            <p class="font-mono text-sm mb-4">2017 – 2020</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-lightest-slate">12th CBSE – Science, Computer &
+                                Mathematics</h3>
+                            <p class="text-slate-400">SH Public School</p>
+                            <p class="font-mono text-sm mb-4">2017</p>
                         </div>
                     </div>
                 </section>
@@ -423,22 +580,45 @@
                     </h2>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                    <a href="https://github.com/joyaljms98/Chrome_extensions/tree/Joyal's-Repository-default-branch/Link%20Notes" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                                    <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
+                                        <a href="https://github.com/joyaljms98/Chrome_extensions/tree/Joyal's-Repository-default-branch/Link%20Notes"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
+                                        <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
-                                    <img src="https://github.com/joyaljms98/Chrome_extensions/blob/Joyal's-Repository-default-branch/Link%20Notes/Screenshot%202025-09-12%20085444.png?raw=true" alt="Screenshot of the Link Alarm project" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                    <img src="https://github.com/joyaljms98/Chrome_extensions/blob/Joyal's-Repository-default-branch/Link%20Notes/Screenshot%202025-09-12%20085444.png?raw=true"
+                                        alt="Screenshot of the Link Alarm project"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold text-lightest-slate mb-2">Link-Notes Extension</h3>
-                                <p class="text-sm">Chrome extensions to save URLs with markdown notes (similar to a bookmark) with auto sort, advanced search and backup and restore features.</p>
-                                </div>
+                                <p class="text-sm">Chrome extensions to save URLs with markdown notes (similar to a
+                                    bookmark) with auto sort, advanced search and backup and restore features.</p>
+                            </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">HTML</span>
                                 <span class="mr-3 mb-1">CSS</span>
@@ -446,21 +626,45 @@
                             </div>
                         </div>
 
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                    <a href="https://github.com/joyaljms98/Chrome_extensions/tree/Joyal's-Repository-default-branch/Link%20Alarm" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                                    <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
+                                        <a href="https://github.com/joyaljms98/Chrome_extensions/tree/Joyal's-Repository-default-branch/Link%20Alarm"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
+                                        <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
-                                    <img src="https://raw.githubusercontent.com/joyaljms98/Chrome_extensions/Joyal's-Repository-default-branch/Link%20Alarm/Screenshot%202025-09-12%20085523.png" alt="Screenshot of the Link Alarm project" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                    <img src="https://raw.githubusercontent.com/joyaljms98/Chrome_extensions/Joyal's-Repository-default-branch/Link%20Alarm/Screenshot%202025-09-12%20085523.png"
+                                        alt="Screenshot of the Link Alarm project"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold text-lightest-slate mb-2">Link-Alarm Extension</h3>
-                                <p class="text-sm">Chrome extensions to save URLs with notes which can trigger time-based site visit alarms., enhancing productivity and web browsing management.</p>
+                                <p class="text-sm">Chrome extensions to save URLs with notes which can trigger
+                                    time-based site visit alarms., enhancing productivity and web browsing management.
+                                </p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">HTML</span>
@@ -469,21 +673,45 @@
                             </div>
                         </div>
 
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/Video%20Queue" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                                    <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
+                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/Video%20Queue"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
+                                        <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
-                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Video%20Queue/assets/img2.png?raw=true" alt="Screenshot of the Link Alarm project" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Video%20Queue/assets/img2.png?raw=true"
+                                        alt="Screenshot of the Link Alarm project"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold text-lightest-slate mb-2">Video Queue</h3>
-                                <p class="text-sm">A Youtube API based website-canvas to create visually connected video queues to help users, track and complete a specified list of videos in custom order.</p>
+                                <p class="text-sm">A Youtube API based website-canvas to create visually connected video
+                                    queues to help users, track and complete a specified list of videos in custom order.
+                                </p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">HTML</span>
@@ -493,21 +721,44 @@
                             </div>
                         </div>
 
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/Zenith%20Audio%20Player" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/Zenith%20Audio%20Player"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
                                         <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Zenith%20Audio%20Player/assets/img2.png?raw=true" alt="Screenshot of the Zenith Audio Player project" class="absolute inset-0 w-full h-full object-cover">
-                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Zenith%20Audio%20Player/Screenshot%202025-09-12%20092156.png?raw=true" alt="Screenshot of the Link Alarm project" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Zenith%20Audio%20Player/assets/img2.png?raw=true"
+                                        alt="Screenshot of the Zenith Audio Player project"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Zenith%20Audio%20Player/Screenshot%202025-09-12%20092156.png?raw=true"
+                                        alt="Screenshot of the Link Alarm project"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold text-lightest-slate mb-2">Zenith Audio Player</h3>
-                                <p class="text-sm">A visually spectacular, lightweight local audio player app for Windows with basic editing capability, built with web technologies.</p>
+                                <p class="text-sm">A visually spectacular, lightweight local audio player app for
+                                    Windows with basic editing capability, built with web technologies.</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">HTML</span>
@@ -516,21 +767,54 @@
                             </div>
                         </div>
 
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/SpectreAI-Lawyer_Agent" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                                        <a href="https://html-preview.github.io/?url=https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal%27s-Repository-default-branch/SpectreAI-Lawyer_Agent/index.html" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/SpectreAI-Lawyer_Agent"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
+                                        <a href="https://html-preview.github.io/?url=https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal%27s-Repository-default-branch/SpectreAI-Lawyer_Agent/index.html"
+                                            class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>External Link</title>
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6">
+                                                </path>
+                                                <polyline points="15 3 21 3 21 9"></polyline>
+                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                            </svg></a>
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
-                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/SpectreAI-Lawyer_Agent/img3.png?raw=true" alt="Screenshot of the Link Alarm project" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/SpectreAI-Lawyer_Agent/img3.png?raw=true"
+                                        alt="Screenshot of the Link Alarm project"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold text-lightest-slate mb-2">SpectreAI - AI Lawyer Agent</h3>
-                                <p class="text-sm">Agentic AI project built to answer legal questions and guide you through legal proceedings.</p>
+                                <p class="text-sm">Agentic AI project built to answer legal questions and guide you
+                                    through legal proceedings.</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">HTML</span>
@@ -540,21 +824,44 @@
                             </div>
                         </div>
 
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/Website%20Editor%20Lite" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/Website%20Editor%20Lite"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
                                         <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
-                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Website%20Editor%20Lite/img4.png?raw=true" alt="Screenshot of the Link Alarm project" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Website%20Editor%20Lite/img4.png?raw=true"
+                                        alt="Screenshot of the Link Alarm project"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold text-lightest-slate mb-2">Visual Website Editor Lite</h3>
-                                <p class="text-sm">A visual website editor for non-coders who lack basic web development skills.</p>
+                                <p class="text-sm">A visual website editor for non-coders who lack basic web development
+                                    skills.</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">HTML</span>
@@ -563,21 +870,56 @@
                             </div>
                         </div>
 
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/Ech0%20AudioBot" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                                        <a href="https://html-preview.github.io/?url=https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal%27s-Repository-default-branch/Ech0%20AudioBot/index.html" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                                        <a href="https://github.com/joyaljms98/My-Software-Development-Projects/tree/Joyal's-Repository-default-branch/Ech0%20AudioBot"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
+                                        <a href="https://html-preview.github.io/?url=https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal%27s-Repository-default-branch/Ech0%20AudioBot/index.html"
+                                            class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>External Link</title>
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6">
+                                                </path>
+                                                <polyline points="15 3 21 3 21 9"></polyline>
+                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                            </svg></a>
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
-                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Ech0%20AudioBot/assets/img1.png?raw=true" alt="Screenshot of the Link Alarm project" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                    <img src="https://github.com/joyaljms98/My-Software-Development-Projects/blob/Joyal's-Repository-default-branch/Ech0%20AudioBot/assets/img1.png?raw=true"
+                                        alt="Screenshot of the Link Alarm project"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
-                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Ech0 - hexadecimal AI Audiobot</h3>
-                                <p class="text-sm">A quirky chatbot with a minimalist UI that responds to your questions with different audio frequencies representing hexadecimal code (part of Useless projects 2.0 Makeathon).</p>
+                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Ech0 - hexadecimal AI Audiobot
+                                </h3>
+                                <p class="text-sm">A quirky chatbot with a minimalist UI that responds to your questions
+                                    with different audio frequencies representing hexadecimal code (part of Useless
+                                    projects 2.0 Makeathon).</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">HTML</span>
@@ -586,22 +928,48 @@
                                 <span class="mr-3 mb-1">Gemini API</span>
                             </div>
                         </div>
-                        
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                        <a href="https://github.com/nandhukpvr/Secret-Notepad?tab=readme-ov-file" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                        <a href="https://github.com/nandhukpvr/Secret-Notepad?tab=readme-ov-file"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
                                         <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
-                                    <img src="https://camo.githubusercontent.com/9ac9d5b1317be7c580582c8be3ffa699c73a1fdd1919a78ee490ea1134afb451/68747470733a2f2f696d672e796f75747562652e636f6d2f76692f634964345f71526b394b6f2f302e6a7067" alt="Screenshot of the Link Alarm project" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                    <img src="https://camo.githubusercontent.com/9ac9d5b1317be7c580582c8be3ffa699c73a1fdd1919a78ee490ea1134afb451/68747470733a2f2f696d672e796f75747562652e636f6d2f76692f634964345f71526b394b6f2f302e6a7067"
+                                        alt="Screenshot of the Link Alarm project"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
-                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Secret Notepad with Disappearing Text</h3>
-                                <p class="text-sm">It provides a secure notepad interface where users can type and save secret messages. The application features disappearing text and automatic character counting that saves the secret message with password protection to a local path but with a surprise. (part of Useless projects 1.0 Makeathon).</p>
+                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Secret Notepad with Disappearing
+                                    Text</h3>
+                                <p class="text-sm">It provides a secure notepad interface where users can type and save
+                                    secret messages. The application features disappearing text and automatic character
+                                    counting that saves the secret message with password protection to a local path but
+                                    with a surprise. (part of Useless projects 1.0 Makeathon).</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">Python</span>
@@ -609,20 +977,41 @@
                             </div>
                         </div>
 
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                        <a href="https://github.com/joyaljms98/My-Data-Science-Projects/tree/Joyal's-Repository-default-branch/Project%203%3A%20Product%20Sales%20Forecasting" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                                    <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
+                                        <a href="https://github.com/joyaljms98/My-Data-Science-Projects/tree/Joyal's-Repository-default-branch/Project%203%3A%20Product%20Sales%20Forecasting"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
+                                        <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold text-lightest-slate mb-2">Product Sales Forecasting</h3>
-                                <p class="text-sm">Forecasted product sales and bike rentals using Excel, Python Machine Learning models, and interactive Power BI dashboards for visualization.</p>
+                                <p class="text-sm">Forecasted product sales and bike rentals using Excel, Python Machine
+                                    Learning models, and interactive Power BI dashboards for visualization.</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">Python</span>
@@ -631,20 +1020,42 @@
                             </div>
                         </div>
 
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                    <a href="https://github.com/joyaljms98/My-Data-Science-Projects/tree/Joyal's-Repository-default-branch/Project%204%3A%20Analysis%20Using%20K-Means%20and%20Hierarchical%20Clustering" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                                    <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
+                                        <a href="https://github.com/joyaljms98/My-Data-Science-Projects/tree/Joyal's-Repository-default-branch/Project%204%3A%20Analysis%20Using%20K-Means%20and%20Hierarchical%20Clustering"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
+                                        <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
-                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Game Analysis with Clustering</h3>
-                                <p class="text-sm">Explored FIFA game data, using K-Means & Hierarchical Clustering to visualize player stats and uncover insightful player clusters with Tableau.</p>
+                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Game Analysis with Clustering
+                                </h3>
+                                <p class="text-sm">Explored FIFA game data, using K-Means & Hierarchical Clustering to
+                                    visualize player stats and uncover insightful player clusters with Tableau.</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">Machine Learning</span>
@@ -653,20 +1064,42 @@
                             </div>
                         </div>
 
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                        <a href="https://github.com/joyaljms98/My-Data-Science-Projects/tree/Joyal's-Repository-default-branch/Project%202%3A%20Image%20Classification%20Using%20CNN" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                                    <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
+                                        <a href="https://github.com/joyaljms98/My-Data-Science-Projects/tree/Joyal's-Repository-default-branch/Project%202%3A%20Image%20Classification%20Using%20CNN"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
+                                        <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
-                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Image Classification with CNN</h3>
-                                <p class="text-sm">Image classification of rice diseases using ResNet and VGG models. Also used custom python code to automatically unzip datasets in a zip file.</p>
+                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Image Classification with CNN
+                                </h3>
+                                <p class="text-sm">Image classification of rice diseases using ResNet and VGG models.
+                                    Also used custom python code to automatically unzip datasets in a zip file.</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
                                 <span class="mr-3 mb-1">Python</span>
@@ -674,20 +1107,41 @@
                                 <span class="mr-3 mb-1">CNN</span>
                             </div>
                         </div>
-                        
-                        <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+
+                        <div
+                            class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><title>Folder</title><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                        stroke="#64ffda" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                        class="w-10 h-10">
+                                        <title>Folder</title>
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                        </path>
+                                    </svg>
                                     <div class="flex space-x-4">
-                                        <a href="https://github.com/joyaljms98/My-Data-Science-Projects/tree/Joyal's-Repository-default-branch/Project%205%3A%20Credit%20score%20prediction%20(BFSI)" target="_blank" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                        <a href="https://github.com/joyaljms98/My-Data-Science-Projects/tree/Joyal's-Repository-default-branch/Project%205%3A%20Credit%20score%20prediction%20(BFSI)"
+                                            target="_blank" class="hover:text-accent transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                                <title>GitHub</title>
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg></a>
                                         <!-- <a href="#" class="hover:text-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><title>External Link</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a> -->
                                     </div>
                                 </div>
-                                <div class="relative w-full mb-4 rounded-md overflow-hidden" style="padding-top: 56.25%;">
-                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image" alt="Project Placeholder Image" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="relative w-full mb-4 rounded-md overflow-hidden"
+                                    style="padding-top: 56.25%;">
+                                    <img src="https://placehold.co/1600x900/4a5568/a0aec0?text=No+Project+Image"
+                                        alt="Project Placeholder Image"
+                                        class="absolute inset-0 w-full h-full object-cover">
                                 </div>
-                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Credit Score Prediction (BFSI)</h3>
+                                <h3 class="text-xl font-bold text-lightest-slate mb-2">Credit Score Prediction (BFSI)
+                                </h3>
                                 <p class="text-sm">Predicted credit default risk using SQL and Excel AI features.</p>
                             </div>
                             <div class="mt-4 flex flex-wrap font-mono text-xs">
@@ -700,15 +1154,66 @@
                     </div>
                 </section>
 
+                <section id="achievements" class="py-24 fade-in-section">
+                    <h2 class="text-3xl font-bold text-lightest-slate mb-8 flex items-center">
+                        <span class="text-accent mr-4 text-2xl font-normal">#</span> Achievements & Interests
+                        <span class="h-px bg-gray-700 w-full ml-6"></span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div>
+                            <h3 class="text-xl font-bold text-lightest-slate mb-6">Positions of Responsibility &
+                                Achievements</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <span class="text-accent mr-3 mt-1">▹</span>
+                                    <span>Student Placement Coordinator (MCA)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-accent mr-3 mt-1">▹</span>
+                                    <span>Tech Fest Coordinator & Accounts Manager</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-accent mr-3 mt-1">▹</span>
+                                    <span>Class Representative (MCA)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-accent mr-3 mt-1">▹</span>
+                                    <span>Legend Tier – Google Cloud Arcade</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-accent mr-3 mt-1">▹</span>
+                                    <span>2nd Position – ANIMATE Competition (NIIT)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-lightest-slate mb-6">Interests</h3>
+                            <div class="flex flex-wrap gap-3">
+                                <span
+                                    class="bg-light-navy text-accent px-4 py-2 rounded-full text-sm font-mono border border-accent/20">Gen-AI
+                                    creation & editing</span>
+                                <span
+                                    class="bg-light-navy text-accent px-4 py-2 rounded-full text-sm font-mono border border-accent/20">Smartphone
+                                    photography</span>
+                                <span
+                                    class="bg-light-navy text-accent px-4 py-2 rounded-full text-sm font-mono border border-accent/20">Puzzle
+                                    games</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <section id="contact" class="py-60 text-center max-w-4xl mx-auto fade-in-section">
-                    <h2 class="text-2xl font-bold text-accent mb-2">Looking for a responsible fella with great passion and skills in tech</h2>
+                    <h2 class="text-2xl font-bold text-accent mb-2">Looking for a responsible fella with great passion
+                        and skills in tech</h2>
                     <h3 class="text-4xl font-bold text-lightest-slate mb-4">Well, congrats, you found him.</h3>
                     <p class="mb-8">
-                        I'm currently looking for new opportunities, and my inbox is always open. <br> Whether you have a question or just want to say hi, I’ll try my best to get back to you!
+                        I'm currently looking for new opportunities, and my inbox is always open. <br> Whether you have
+                        a question or just want to say hi, I’ll try my best to get back to you!
                     </p>
 
                     <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=joyaljms98@gmail.com" target="_blank" 
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=joyaljms98@gmail.com" target="_blank"
                             class="inline-block border border-accent text-accent text-lg px-8 py-4 rounded-md hover:bg-accent hover:text-gray-900 transition-all duration-300 w-full sm:w-auto">
                             Email Me 📧
                         </a>
@@ -719,25 +1224,52 @@
                     </div>
 
                     <div class="mt-8 flex justify-center items-center space-x-6">
-                        <a href="https://github.com/joyaljms98" target="_blank" aria-label="GitHub Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>GitHub</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                        <a href="https://www.linkedin.com/in/joyal-james-jj25101998/" target="_blank" aria-label="LinkedIn Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>LinkedIn</title><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
-                        <a href="https://www.credly.com/users/joyal-james.7b4cd607/badges#credly" target="_blank" aria-label="Credly Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hover:text-accent transition-colors"><title>Credly</title><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L12 9.75l-2.25-2.25a6 6 0 0 0-8.49 8.49l6 6L12 21l2.25-2.25 6-6zM12 14.25l-4.24-4.24a4 4 0 1 1 5.66-5.66L12 5.66l-1.41-1.41a4 4 0 1 1 5.66 5.66L12 14.25z"/></svg></a>
+                        <a href="https://github.com/joyaljms98" target="_blank" aria-label="GitHub Profile"><svg
+                                xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="w-6 h-6 hover:text-accent transition-colors">
+                                <title>GitHub</title>
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                </path>
+                            </svg></a>
+                        <a href="https://www.linkedin.com/in/joyal-james-jj25101998/" target="_blank"
+                            aria-label="LinkedIn Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="w-6 h-6 hover:text-accent transition-colors">
+                                <title>LinkedIn</title>
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg></a>
+                        <a href="https://www.credly.com/users/joyal-james.7b4cd607/badges#credly" target="_blank"
+                            aria-label="Credly Profile"><svg xmlns="http://www.w3.org/2000/svg" role="img"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="w-6 h-6 hover:text-accent transition-colors">
+                                <title>Credly</title>
+                                <path
+                                    d="M20.24 12.24a6 6 0 0 0-8.49-8.49L12 9.75l-2.25-2.25a6 6 0 0 0-8.49 8.49l6 6L12 21l2.25-2.25 6-6zM12 14.25l-4.24-4.24a4 4 0 1 1 5.66-5.66L12 5.66l-1.41-1.41a4 4 0 1 1 5.66 5.66L12 14.25z" />
+                            </svg></a>
                     </div>
                 </section>
 
             </main>
-    
-    <footer class="py-6 text-center text-xs">
-        <p>Designed and built by Joyal James (The Tech Fella 😁).</p>
-    </footer>
-    </div>
+
+            <footer class="py-6 text-center text-xs">
+                <p>Designed and built by Joyal James (The Tech Fella 😁).</p>
+            </footer>
+        </div>
     </div>
 
 
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // --- The rest of your existing JavaScript code goes here ---
             // --- The rest of your existing JavaScript code goes here ---
             const loadingScreen = document.getElementById('loading-screen');
@@ -774,7 +1306,7 @@
                 maxTimePassed = true;
                 hideLoadingScreen();
             }, 5000);
-            
+
 
 
             // --- Manual Anchor Link Scrolling ---
@@ -805,7 +1337,7 @@
             };
 
             headerLogo.addEventListener('click', (e) => {
-                e.preventDefault(); 
+                e.preventDefault();
                 helloPopup.classList.remove('opacity-0');
                 helloPopupOverlay.classList.remove('opacity-0', 'pointer-events-none');
                 helloPopupOverlay.style.opacity = '0.9';
@@ -831,16 +1363,16 @@
                     mobileMenu.classList.add('hidden');
                 });
             });
-            
+
             // --- Header Scroll Effect ---
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => {
-                if(window.scrollY > 50) {
-                     header.classList.add('py-2');
-                     header.classList.remove('py-4');
+                if (window.scrollY > 50) {
+                    header.classList.add('py-2');
+                    header.classList.remove('py-4');
                 } else {
-                     header.classList.add('py-4');
-                     header.classList.remove('py-2');
+                    header.classList.add('py-4');
+                    header.classList.remove('py-2');
                 }
             });
 
@@ -852,7 +1384,7 @@
                 threshold: 0.15 // 15% of the element is visible
             };
 
-            const observer = new IntersectionObserver(function(entries, observer) {
+            const observer = new IntersectionObserver(function (entries, observer) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
@@ -864,7 +1396,7 @@
             sections.forEach(section => {
                 observer.observe(section);
             });
-            
+
 
             // --- Custom Cursor Logic ---
             const cursorDot = document.querySelector('.cursor-dot');
@@ -878,7 +1410,7 @@
 
             let targetScale = 1;
             let currentScale = 1;
-            
+
             // Using a helper function for linear interpolation for smoother animation
             const lerp = (a, b, n) => (1 - n) * a + n * b;
 
@@ -894,18 +1426,18 @@
 
                 // Animate the scale for the hover effect
                 currentScale = lerp(currentScale, targetScale, 0.2);
-                
+
                 // Position the dot directly at the mouse location
                 // The offsets (-4, -20) center the elements on the cursor
                 cursorDot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
-                
+
                 // Position and scale the circle
                 cursorCircle.style.transform = `translate(${circleX - 20}px, ${circleY - 20}px) scale(${currentScale})`;
 
                 requestAnimationFrame(animateCursor);
             };
             animateCursor();
-            
+
             // --- Cursor Hover Effect ---
             const hoverElements = document.querySelectorAll('a, button');
             hoverElements.forEach(el => {
@@ -950,139 +1482,148 @@
 
         });
         const math = {
-	lerp: (a, b, n) => {
-		return (1 - n) * a + n * b
-	},
-	norm: (value, min, max) => {
-	  	return (value - min) / (max - min)
-	}
-}
+            lerp: (a, b, n) => {
+                return (1 - n) * a + n * b
+            },
+            norm: (value, min, max) => {
+                return (value - min) / (max - min)
+            }
+        }
 
-const config = {
-  height: window.innerHeight,
-  width: window.innerWidth
-}
+        const config = {
+            height: window.innerHeight,
+            width: window.innerWidth
+        }
 
-class Smooth {
-  constructor() {
-    this.bindMethods()
+        class Smooth {
+            constructor() {
+                this.bindMethods()
 
-    this.data = {
-      ease: 0.1,
-      current: 0,
-      last: 0,
-      rounded: 0
-    }
+                this.data = {
+                    ease: 0.1,
+                    current: 0,
+                    last: 0,
+                    rounded: 0
+                }
 
-    this.dom = {
-      el: document.querySelector('[data-scroll]'),
-      content: document.querySelector('[data-scroll-content]')
-    }
+                this.dom = {
+                    el: document.querySelector('[data-scroll]'),
+                    content: document.querySelector('[data-scroll-content]'),
+                    progress: document.getElementById('scroll-progress')
+                }
 
-    this.rAF = null
+                this.rAF = null
 
-    this.init()
-  }
+                this.init()
+            }
 
-  bindMethods() {
-    ['scroll', 'run', 'resize']
-    .forEach((fn) => this[fn] = this[fn].bind(this))
-  }
+            bindMethods() {
+                ['scroll', 'run', 'resize']
+                    .forEach((fn) => this[fn] = this[fn].bind(this))
+            }
 
-  setStyles() {
-    Object.assign(this.dom.el.style, {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      height: '100%',
-      width: '100%',
-      overflow: 'hidden'
-    })
-  }
+            setStyles() {
+                Object.assign(this.dom.el.style, {
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    height: '100%',
+                    width: '100%',
+                    overflow: 'hidden'
+                })
+            }
 
-  setHeight() {
-    document.body.style.height = `${this.dom.content.getBoundingClientRect().height}px`
-  }
+            setHeight() {
+                document.body.style.height = `${this.dom.content.getBoundingClientRect().height}px`
+            }
 
-  resize() {
-    this.setHeight()
-    this.scroll()
-  }
+            resize() {
+                this.setHeight()
+                this.scroll()
+            }
 
-  preload() {
-    imagesLoaded(this.dom.content, (instance) => {
-      this.setHeight()
-    })
-  }
+            preload() {
+                imagesLoaded(this.dom.content, (instance) => {
+                    this.setHeight()
+                })
+            }
 
-  scroll() {
-    this.data.current = window.scrollY
-  }
+            scroll() {
+                this.data.current = window.scrollY
+            }
 
-  run() {
-    this.data.last += (this.data.current - this.data.last) * this.data.ease;
-    this.data.rounded = Math.round(this.data.last * 100) / 100;
-    
-    // The transform now only handles the vertical scroll, without the skew.
-    this.dom.content.style.transform = `translate3d(0, -${this.data.rounded}px, 0)`;
+            run() {
+                this.data.last += (this.data.current - this.data.last) * this.data.ease;
+                this.data.rounded = Math.round(this.data.last * 100) / 100;
 
-    this.requestAnimationFrame();
-}
+                // The transform now only handles the vertical scroll, without the skew.
+                this.dom.content.style.transform = `translate3d(0, -${this.data.rounded}px, 0)`;
 
-  on() { 
-    this.setStyles()
-    this.setHeight()
-    this.addEvents()
+                // Update Progress Bar
+                if (this.dom.progress) {
+                    const docHeight = this.dom.content.getBoundingClientRect().height - window.innerHeight;
+                    const scrollPercent = Math.min(100, Math.max(0, (this.data.rounded / docHeight) * 100));
+                    this.dom.progress.style.width = `${scrollPercent}%`;
+                }
 
-    this.requestAnimationFrame()
-  }
+                this.requestAnimationFrame();
+            }
 
-  off() {
-    this.cancelAnimationFrame()
+            on() {
+                this.setStyles()
+                this.setHeight()
+                this.addEvents()
 
-    this.removeEvents()
-  }
+                this.requestAnimationFrame()
+            }
 
-  requestAnimationFrame() {
-    this.rAF = requestAnimationFrame(this.run)
-  }
+            off() {
+                this.cancelAnimationFrame()
 
-  cancelAnimationFrame() {
-    cancelAnimationFrame(this.rAF)
-  }
+                this.removeEvents()
+            }
 
-  destroy() {
-    document.body.style.height = ''
+            requestAnimationFrame() {
+                this.rAF = requestAnimationFrame(this.run)
+            }
 
-    this.data = null
+            cancelAnimationFrame() {
+                cancelAnimationFrame(this.rAF)
+            }
 
-    this.removeEvents()
-    this.cancelAnimationFrame()
-  }
+            destroy() {
+                document.body.style.height = ''
 
-  resize() {
-    this.setHeight()
-    this.data.rounded = this.data.last = this.data.current
-  }
+                this.data = null
 
-  addEvents() {
-    window.addEventListener('resize', this.resize, { passive: true })
-    window.addEventListener('scroll', this.scroll, { passive: true })
-  }
+                this.removeEvents()
+                this.cancelAnimationFrame()
+            }
 
-  removeEvents() {
-    window.removeEventListener('resize', this.resize, { passive: true })
-    window.removeEventListener('scroll', this.scroll, { passive: true })
-  }
+            resize() {
+                this.setHeight()
+                this.data.rounded = this.data.last = this.data.current
+            }
 
-  init() {
-    this.preload()
-    this.on()
-  }
-}
+            addEvents() {
+                window.addEventListener('resize', this.resize, { passive: true })
+                window.addEventListener('scroll', this.scroll, { passive: true })
+            }
 
-new Smooth()
+            removeEvents() {
+                window.removeEventListener('resize', this.resize, { passive: true })
+                window.removeEventListener('scroll', this.scroll, { passive: true })
+            }
+
+            init() {
+                this.preload()
+                this.on()
+            }
+        }
+
+        new Smooth()
     </script>
+    <div id="scroll-progress"></div>
 </body>
-</html>
 
+</html>
